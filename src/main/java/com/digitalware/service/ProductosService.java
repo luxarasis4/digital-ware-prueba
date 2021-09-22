@@ -8,7 +8,9 @@ import com.digitalware.dto.ProductoResponseDTO;
 
 public interface ProductosService {
 
-    public List<ProductoResponseDTO> listAll();
+    public List<ProductoResponseDTO> listAll() throws Exception;
+
+    public ProductoResponseDTO getById(Long id) throws Exception;
 
     public ProductoResponseDTO create(ProductoRequestDTO request) throws Exception;
 

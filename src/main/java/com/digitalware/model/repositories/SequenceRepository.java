@@ -17,7 +17,19 @@ public class SequenceRepository {
 
         Long id = sequences.getProduct();
 
-        sequences.setProduct(++id);
+        sequences.setProduct(id == null ? (id = 1L) : ++id);
+
+        this.writeFile(sequences);
+
+        return id;
+    }
+
+    public Long nextClientId() throws Exception {
+        SequenceEntity sequences = this.readFile();
+
+        Long id = sequences.getClient();
+
+        sequences.setClient(id == null ? (id = 1L) : ++id);
 
         this.writeFile(sequences);
 
@@ -33,7 +45,8 @@ public class SequenceRepository {
                     SequenceEntity.class);
         } catch (IOException e) {
             sequences = new SequenceEntity();
-            sequences.setProduct(0L);
+            sequences.setProduct(1L);
+            sequences.setClient(1L);
 
             this.writeFile(sequences);
         }

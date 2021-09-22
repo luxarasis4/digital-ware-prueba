@@ -20,7 +20,7 @@ public class ProductosServiceImple implements ProductosService {
     private ProductoRepository productoRepository;
 
     @Override
-    public List<ProductoResponseDTO> listAll() {
+    public List<ProductoResponseDTO> listAll() throws Exception {
         Map<Long, ProductoEntity> productos = productoRepository.findAll();
 
         List<ProductoResponseDTO> productosResponse = new ArrayList<>();
@@ -36,6 +36,19 @@ public class ProductosServiceImple implements ProductosService {
         });
 
         return productosResponse;
+    }
+
+    @Override
+    public ProductoResponseDTO getById(Long id) throws Exception {
+        ProductoEntity producto = productoRepository.findById(id);
+
+        ProductoResponseDTO productoResponse = new ProductoResponseDTO();
+        productoResponse.setId(producto.getId());
+        productoResponse.setNombre(producto.getNombre());
+        productoResponse.setPrecio(producto.getPrecio());
+        productoResponse.setInventario(producto.getInventario());
+
+        return productoResponse;
     }
 
     @Override
@@ -58,8 +71,7 @@ public class ProductosServiceImple implements ProductosService {
 
     @Override
     public ProductoResponseDTO update(Long id, ProductoRequestDTO request) throws Exception {
-        ProductoEntity producto = new ProductoEntity();
-        producto.setId(id);
+        ProductoEntity producto = productoRepository.findById(id);
         producto.setNombre(request.getNombre());
         producto.setPrecio(request.getPrecio());
         producto.setInventario(request.getInventario());

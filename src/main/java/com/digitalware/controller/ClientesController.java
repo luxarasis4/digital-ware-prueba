@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.digitalware.dto.ProductoRequestDTO;
-import com.digitalware.dto.ProductoResponseDTO;
-import com.digitalware.model.exception.ProductoNoEncontradoException;
-import com.digitalware.service.ProductosService;
+import com.digitalware.dto.ClienteRequestDTO;
+import com.digitalware.dto.ClienteResponseDTO;
+import com.digitalware.model.exception.ClienteNoEncontradoException;
+import com.digitalware.service.ClienteService;
 
 @RestController
-@RequestMapping("products")
-public class ProductosCrontroller {
+@RequestMapping("clientes")
+public class ClientesController {
     @Autowired
-    private ProductosService productosService;
+    private ClienteService clientesService;
 
     @GetMapping
-    public ResponseEntity<List<ProductoResponseDTO>> listAll() throws Exception {
-        return ResponseEntity.ok().body(productosService.listAll());
+    public ResponseEntity<List<ClienteResponseDTO>> listAll() throws Exception {
+        return ResponseEntity.ok().body(clientesService.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductoResponseDTO> getById(@PathVariable("id") Long id)
+    public ResponseEntity<ClienteResponseDTO> getById(@PathVariable("id") Long id)
             throws Exception {
         try {
-            return ResponseEntity.ok().body(productosService.getById(id));
-        } catch (ProductoNoEncontradoException e) {
+            return ResponseEntity.ok().body(clientesService.getById(id));
+        } catch (ClienteNoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<ProductoResponseDTO> create(@RequestBody ProductoRequestDTO request)
+    public ResponseEntity<ClienteResponseDTO> create(@RequestBody ClienteRequestDTO request)
             throws Exception {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productosService.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientesService.create(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductoResponseDTO> update(@PathVariable("id") Long id,
-            @RequestBody ProductoRequestDTO request) throws Exception {
+    public ResponseEntity<ClienteResponseDTO> update(@PathVariable("id") Long id,
+            @RequestBody ClienteRequestDTO request) throws Exception {
         try {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(productosService.update(id, request));
-        } catch (ProductoNoEncontradoException e) {
+                    .body(clientesService.update(id, request));
+        } catch (ClienteNoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -61,10 +61,10 @@ public class ProductosCrontroller {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
         try {
-            productosService.delete(id);
+            clientesService.delete(id);
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (ProductoNoEncontradoException e) {
+        } catch (ClienteNoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
     }

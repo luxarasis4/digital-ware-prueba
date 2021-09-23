@@ -36,6 +36,18 @@ public class SequenceRepository {
         return id;
     }
 
+    public Long nextVentaId() throws Exception {
+        SequenceEntity sequences = this.readFile();
+
+        Long id = sequences.getVenta();
+
+        sequences.setVenta(id == null ? (id = 1L) : ++id);
+
+        this.writeFile(sequences);
+
+        return id;
+    }
+
     private SequenceEntity readFile() throws Exception {
         SequenceEntity sequences = null;
 

@@ -4,6 +4,7 @@ package com.digitalware.model.entities;
 public class SequenceEntity {
     private Long product;
     private Long client;
+    private Long venta;
 
     public Long getProduct() {
         return product;
@@ -19,5 +20,13 @@ public class SequenceEntity {
 
     public void setClient(Long client) {
         this.client = client;
+    }
+
+    public Long getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Long venta) {
+        this.venta = venta;
     }
 }

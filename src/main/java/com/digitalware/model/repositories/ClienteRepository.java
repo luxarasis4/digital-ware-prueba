@@ -18,7 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
-public class ClienteRepository implements CrudRepository<Long, ClienteEntity> {
+public class ClienteRepository {
     private static final String PERSISTENCE_FILE_NAME_CLIENTES = "/clientes.json";
 
     @Value("${digital-ware.persistence.path}")
@@ -27,7 +27,6 @@ public class ClienteRepository implements CrudRepository<Long, ClienteEntity> {
     @Autowired
     private SequenceRepository sequenceRepository;
 
-    @Override
     public ClienteEntity add(ClienteEntity entity) throws Exception {
         Map<Long, ClienteEntity> productos = this.findAll();
 
@@ -45,7 +44,6 @@ public class ClienteRepository implements CrudRepository<Long, ClienteEntity> {
         return entity;
     }
 
-    @Override
     public Map<Long, ClienteEntity> findAll() throws Exception {
         Map<Long, ClienteEntity> productos = null;
 
@@ -69,7 +67,6 @@ public class ClienteRepository implements CrudRepository<Long, ClienteEntity> {
         return productos;
     }
 
-    @Override
     public ClienteEntity findById(Long id) throws Exception {
         ClienteEntity producto = this.findAll().get(id);
 
@@ -79,7 +76,6 @@ public class ClienteRepository implements CrudRepository<Long, ClienteEntity> {
         return producto;
     }
 
-    @Override
     public void delete(Long id) throws Exception {
         Map<Long, ClienteEntity> productos = this.findAll();
 
